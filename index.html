@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nextbewe Time Log</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+
+    <!-- LOGO -->
+
+    <div class="logo">
+
+        <div class="logo-icon">
+
+            <i data-lucide="clock-3"></i>
+
+        </div>
+
+        <div class="logo-text">
+
+            <strong>
+                Nextbewe <span>Time Log</span>
+            </strong>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="navigation">
+
+
+        <a
+            href="#"
+            class="nav-item active"
+            onclick="showPage('dashboard', this)"
+        >
+
+            <i data-lucide="layout-grid"></i>
+
+            <span>
+                Dashboard
+            </span>
+
+        </a>
+
+
+
+        <a
+            href="#"
+            class="nav-item"
+            onclick="showPage('history', this)"
+        >
+
+            <i data-lucide="history"></i>
+
+            <span>
+                Attendance History
+            </span>
+
+        </a>
+
+
+
+        <a
+            href="#"
+            class="nav-item"
+            onclick="showPage('admin', this)"
+        >
+
+            <i data-lucide="users"></i>
+
+            <span>
+                Admin Overview
+            </span>
+
+        </a>
+
+
+    </nav>
+
+
+
+    <!-- SIDEBAR BOTTOM -->
+
+    <div class="sidebar-bottom">
+
+
+        <div class="user-profile">
+
+            <div class="avatar">
+                S
+            </div>
+
+
+            <div>
+
+                <strong>
+                    Sarah Adeyemi
+                </strong>
+
+                <span>
+                    ADM-2001
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <button
+            class="sign-out"
+            onclick="signOut()"
+        >
+
+            <i data-lucide="log-out"></i>
+
+            <span>
+                Sign Out
+            </span>
+
+        </button>
+
+
+    </div>
+
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<main class="main">
+
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<section
+    id="dashboard"
+    class="page active-page"
+>
+
+
+    <!-- HEADER -->
+
+    <header class="dashboard-header">
+
+
+        <div>
+
+            <h1>
+                Good morning, Sarah
+            </h1>
+
+
+            <p>
+
+                <i data-lucide="calendar-days"></i>
+
+                <span id="currentDate"></span>
+
+            </p>
+
+        </div>
+
+
+
+        <!-- LIVE CLOCK -->
+
+        <div class="current-time">
+
+            <strong id="clock">
+                00:00:00 AM
+            </strong>
+
+            <span>
+                Current time
+            </span>
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- =================================================
+         TODAY'S ATTENDANCE
+    ================================================= -->
+
+    <section class="card attendance-card">
+
+
+        <div class="card-heading">
+
+
+            <div>
+
+                <h2>
+                    TODAY'S ATTENDANCE
+                </h2>
+
+                <p>
+                    Your current status
+                </p>
+
+            </div>
+
+
+
+            <!-- STATUS -->
+
+            <span
+                id="statusBadge"
+                class="status-badge"
+            >
+
+                <span></span>
+
+                Not Started
+
+            </span>
+
+
+        </div>
+
+
+
+        <!-- ATTENDANCE BUTTONS -->
+
+        <div class="attendance-actions">
+
+
+            <!-- CLOCK IN -->
+
+            <button
+                id="clockInBtn"
+                class="attendance-btn"
+                onclick="clockIn()"
+            >
+
+                <i data-lucide="clock-3"></i>
+
+                <span>
+                    Clock In
+                </span>
+
+            </button>
+
+
+
+            <!-- BREAK BUTTON -->
+
+            <button
+                id="breakBtn"
+                class="attendance-btn break-btn"
+                onclick="handleBreak()"
+                disabled
+            >
+
+                <i data-lucide="coffee"></i>
+
+                <span id="breakBtnText">
+                    Start Break
+                </span>
+
+            </button>
+
+
+
+            <!-- CLOCK OUT -->
+
+            <button
+                id="clockOutBtn"
+                class="attendance-btn"
+                onclick="clockOut()"
+                disabled
+            >
+
+                <i data-lucide="log-out"></i>
+
+                <span>
+                    Clock Out
+                </span>
+
+            </button>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         RECORDED TIMES
+    ================================================= -->
+
+    <section class="card recorded-card">
+
+
+        <div class="card-title">
+
+            TODAY'S RECORDED TIMES
+
+        </div>
+
+
+
+        <div class="recorded-grid">
+
+
+            <!-- CLOCK IN -->
+
+            <div class="time-box">
+
+                <span>
+                    CLOCK IN
+                </span>
+
+                <strong id="clockInTime">
+                    --:--
+                </strong>
+
+            </div>
+
+
+
+            <!-- BREAK START -->
+
+            <div class="time-box">
+
+                <span>
+                    BREAK START
+                </span>
+
+                <strong id="breakStartTime">
+                    --:--
+                </strong>
+
+            </div>
+
+
+
+            <!-- BREAK END -->
+
+            <div class="time-box">
+
+                <span>
+                    BREAK END
+                </span>
+
+                <strong id="breakEndTime">
+                    --:--
+                </strong>
+
+            </div>
+
+
+
+            <!-- CLOCK OUT -->
+
+            <div class="time-box">
+
+                <span>
+                    CLOCK OUT
+                </span>
+
+                <strong id="clockOutTime">
+                    --:--
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         RECENT ATTENDANCE
+    ================================================= -->
+
+    <section class="card recent-card">
+
+
+        <div class="recent-heading">
+
+
+            <h2>
+                Recent Attendance
+            </h2>
+
+
+            <button
+                onclick="showPage('history')"
+            >
+
+                Last 5 entries
+
+            </button>
+
+
+        </div>
+
+
+
+        <div class="table-container">
+
+
+            <table>
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            DATE
+                        </th>
+
+                        <th>
+                            CLOCK IN
+                        </th>
+
+                        <th>
+                            BREAK
+                        </th>
+
+                        <th>
+                            CLOCK OUT
+                        </th>
+
+                        <th>
+                            STATUS
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+
+                <tbody id="recentTable">
+
+
+                    <tr>
+
+                        <td>
+                            Mon, Sep 28, 2026
+                        </td>
+
+                        <td>
+                            10:05 AM
+                        </td>
+
+                        <td>
+                            --:--
+                        </td>
+
+                        <td>
+                            --:--
+                        </td>
+
+                        <td>
+
+                            <span class="working-status">
+
+                                <span></span>
+
+                                Working
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </section>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     ATTENDANCE HISTORY
+===================================================== -->
+
+<section
+    id="history"
+    class="page"
+>
+
+
+    <header class="page-header">
+
+
+        <h1>
+            Attendance History
+        </h1>
+
+
+        <p>
+            View your past attendance records
+        </p>
+
+
+    </header>
+
+
+
+    <!-- FILTERS -->
+
+    <section class="card filters-card">
+
+
+        <!-- DATE -->
+
+        <div class="filter">
+
+            <label>
+                Filter by Date
+            </label>
+
+
+            <div class="input-wrapper">
+
+                <i data-lucide="calendar"></i>
+
+                <input
+                    type="date"
+                    id="dateFilter"
+                    onchange="filterAttendance()"
+                >
+
+            </div>
+
+        </div>
+
+
+
+        <!-- STATUS -->
+
+        <div class="filter">
+
+            <label>
+                Filter by Status
+            </label>
+
+
+            <select
+                id="statusFilter"
+                onchange="filterAttendance()"
+            >
+
+                <option value="all">
+                    All statuses
+                </option>
+
+                <option value="Working">
+                    Working
+                </option>
+
+                <option value="On Break">
+                    On Break
+                </option>
+
+                <option value="Checked Out">
+                    Checked Out
+                </option>
+
+            </select>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- RECORDS -->
+
+    <section class="card history-card">
+
+
+        <div class="history-heading">
+
+
+            <h2>
+                Records
+            </h2>
+
+
+            <span id="recordCount">
+                3 records
+            </span>
+
+
+        </div>
+
+
+
+        <div class="table-container">
+
+
+            <table>
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            DATE
+                        </th>
+
+                        <th>
+                            CLOCK IN
+                        </th>
+
+                        <th>
+                            BREAK START
+                        </th>
+
+                        <th>
+                            BREAK END
+                        </th>
+
+                        <th>
+                            CLOCK OUT
+                        </th>
+
+                        <th>
+                            STATUS
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+
+                <tbody id="historyTable">
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </section>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     ADMIN OVERVIEW
+===================================================== -->
+
+<section
+    id="admin"
+    class="page"
+>
+
+
+    <header class="page-header">
+
+
+        <h1>
+            Admin Overview
+        </h1>
+
+
+        <p>
+            Monitor employee attendance
+        </p>
+
+
+    </header>
+
+
+
+    <!-- ADMIN STATISTICS -->
+
+    <div class="admin-stats">
+
+
+        <!-- TOTAL -->
+
+        <div class="admin-stat">
+
+
+            <div class="stat-icon blue">
+
+                <i data-lucide="users"></i>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Total Employees
+                </span>
+
+                <strong>
+                    48
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- WORKING -->
+
+        <div class="admin-stat">
+
+
+            <div class="stat-icon green">
+
+                <i data-lucide="user-check"></i>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Currently Working
+                </span>
+
+                <strong>
+                    32
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- BREAK -->
+
+        <div class="admin-stat">
+
+
+            <div class="stat-icon orange">
+
+                <i data-lucide="coffee"></i>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    On Break
+                </span>
+
+                <strong>
+                    8
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- CHECKED OUT -->
+
+        <div class="admin-stat">
+
+
+            <div class="stat-icon purple">
+
+                <i data-lucide="log-out"></i>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Checked Out
+                </span>
+
+                <strong>
+                    5
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- EMPLOYEE TABLE -->
+
+    <section class="card employee-card">
+
+
+        <div class="recent-heading">
+
+
+            <div>
+
+                <h2>
+                    Employee Attendance
+                </h2>
+
+                <p>
+                    Today's employee attendance records
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- SEARCH -->
+
+        <div class="search-area">
+
+
+            <div class="search-box">
+
+                <i data-lucide="search"></i>
+
+                <input
+                    type="text"
+                    id="employeeSearch"
+                    placeholder="Search employee..."
+                    onkeyup="searchEmployees()"
+                >
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- TABLE -->
+
+        <div class="table-container">
+
+
+            <table>
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            EMPLOYEE
+                        </th>
+
+                        <th>
+                            CHECK IN
+                        </th>
+
+                        <th>
+                            BREAK START
+                        </th>
+
+                        <th>
+                            BREAK END
+                        </th>
+
+                        <th>
+                            CHECK OUT
+                        </th>
+
+                        <th>
+                            STATUS
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+
+                <tbody id="employeeTable">
+
+
+                    <tr>
+
+                        <td>
+                            Sarah Adeyemi
+                        </td>
+
+                        <td>
+                            08:02 AM
+                        </td>
+
+                        <td>
+                            12:30 PM
+                        </td>
+
+                        <td>
+                            01:00 PM
+                        </td>
+
+                        <td>
+                            --
+                        </td>
+
+                        <td>
+
+                            <span class="working-status">
+
+                                <span></span>
+
+                                Working
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <tr>
+
+                        <td>
+                            Ibrahim Musa
+                        </td>
+
+                        <td>
+                            08:15 AM
+                        </td>
+
+                        <td>
+                            01:00 PM
+                        </td>
+
+                        <td>
+                            --
+                        </td>
+
+                        <td>
+                            --
+                        </td>
+
+                        <td>
+
+                            <span class="break-status">
+
+                                <span></span>
+
+                                On Break
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <tr>
+
+                        <td>
+                            Aisha Bello
+                        </td>
+
+                        <td>
+                            07:50 AM
+                        </td>
+
+                        <td>
+                            12:10 PM
+                        </td>
+
+                        <td>
+                            12:50 PM
+                        </td>
+
+                        <td>
+                            05:02 PM
+                        </td>
+
+                        <td>
+
+                            <span class="checked-status">
+
+                                <span></span>
+
+                                Checked Out
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </section>
+
+
+</section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script src="script.js"></script>
+
+
+</body>
+
+</html>
